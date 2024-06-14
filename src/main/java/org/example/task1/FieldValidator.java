@@ -27,7 +27,7 @@ public class FieldValidator {
     private void validateRegexp(Object o, Field field) throws IllegalAccessException {
         if (field.isAnnotationPresent(Regex.class)) {
             Regex annotation = field.getAnnotation(Regex.class);
-            String fieldValue = (String)field.get(o);
+            String fieldValue = (String) field.get(o);
             String regex = annotation.value();
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(fieldValue);

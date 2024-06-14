@@ -7,7 +7,8 @@ import org.example.task1.annotations.Regex;
 import org.example.task1.exception.FieldValidationException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FieldValidatorTest {
 
@@ -15,55 +16,54 @@ class FieldValidatorTest {
 
     @Test
     void shouldNotThrowExceptionWhenValidMin() {
-        User userToValidate = new User(1, "Oleksii", "AA000000" );
-        assertDoesNotThrow(() ->fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(1, "Oleksii", "AA000000");
+        assertDoesNotThrow(() -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldThrowExceptionWhenInvalidMin() {
-        User userToValidate = new User(-1, "Oleksii", "AA000000" );
-        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(-1, "Oleksii", "AA000000");
+        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldNotThrowExceptionWhenValidMax() {
-        User userToValidate = new User(123, "Oleksii", "AA000000" );
-        assertDoesNotThrow(() ->fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(123, "Oleksii", "AA000000");
+        assertDoesNotThrow(() -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldThrowExceptionWhenInvalidMax() {
-        User userToValidate = new User(200, "Oleksii", "AA000000" );
-        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(200, "Oleksii", "AA000000");
+        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldNotThrowExceptionWhenFieldIsNotNull() {
-        User userToValidate = new User(50, "Alex", "AA000000" );
-        assertDoesNotThrow(() ->fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(50, "Alex", "AA000000");
+        assertDoesNotThrow(() -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldThrowExceptionWhenFieldIsNull() {
-        User userToValidate = new User(50, null, "AA000000" );
-        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(50, null, "AA000000");
+        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldNotThrowExceptionWhenFieldMatchRegex() {
-        User userToValidate = new User(50, "Alex", "AA000000" );
-        assertDoesNotThrow(() ->fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(50, "Alex", "AA000000");
+        assertDoesNotThrow(() -> fieldValidator.isValid(testUserToValidate));
     }
 
     @Test
     void shouldThrowExceptionWhenFieldIsNotMatchRegex() {
-        User userToValidate = new User(50, "Alex", "A0A0000" );
-        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(userToValidate));
+        TestUser testUserToValidate = new TestUser(50, "Alex", "A0A0000");
+        assertThrows(FieldValidationException.class, () -> fieldValidator.isValid(testUserToValidate));
     }
 
-
-    private static class User{
-        public User(int age, String name, String passport) {
+    private static class TestUser {
+        public TestUser(int age, String name, String passport) {
             this.age = age;
             this.name = name;
             this.passport = passport;
